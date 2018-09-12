@@ -13,8 +13,28 @@
 
     <%= form.input :title %>
     <%= form.input :description, as: :text %>
-    <%= form.input :launch_date, as: :date%>
-
+    <%= form.input :launch_date, as: :date, input_html:{class:"datepicker"}%>
+    <table class='table'>
+    <thead>
+      <tr>
+        <th>Task</th>
+        <th>Completed</th>
+        <th>Description</th>
+        <th>
+          <div class="form-actions">
+            <%= link_to_add_row('Add Task', form, :tasks, class: 'btn') %>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody class='fields'>
+      <%= form.simple_fields_for :tasks do |builder| %>
+        <%= render 'task', f: builder %>
+      <% end %>
+    </tbody>
+  </table>
+  
+  <hr/>
   <div class="actions">
     <%= form.submit class:"btn"%>
   </div>
