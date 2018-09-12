@@ -7,10 +7,22 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
   </head>
 
   <body>
+
+    <nav class="nav  teal lighten-1">
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo center fa fa-ravelry">Nested Field Demo</a>
+      </div>
+    </nav>
+
     <div class="container">
+      <% flash.each do |message_type, message| %>
+        <%= javascript_tag "Materialize.toast('#{message}', 4000)" %>
+      <% end %> 
       <%= yield %>
     </div>
   </body>
