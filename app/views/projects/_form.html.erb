@@ -1,16 +1,4 @@
 <%= simple_form_for(project) do |form| %>
-  <% if project.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
-
-      <ul>
-      <% project.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
     <%= form.input :title %>
     <%= form.input :description, as: :text %>
     <%= form.input :launch_date, input_html:{class:"datepicker"}%>
@@ -22,12 +10,17 @@
           <th>Description</th>
           <th>
             <div class="form-actions">
-              <%= link_to_add_row("<i class='fa fa-plus'></i>".html_safe, form, :tasks, class: 'green darken-2 btn') %>
+              <%= link_to  'javascript:void(0)',class:"green darken-2 btn add_record",data:{ 
+                            id:@nested_id, 
+                            "nested-html":nested_content(:tasks,form,@nested_id).html_safe
+                           } do %>
+                <i class='fa fa-plus'></i>
+              <% end -%>
             </div>
           </th>
         </tr>
       </thead>
-      <tbody class='fields'>
+      <tbody id='tasks'>
         <%= form.simple_fields_for :tasks do |builder| %>
           <%= render 'task', f: builder %>
         <% end %>
@@ -37,5 +30,7 @@
   <div class="divider"></div>
   <div class="divider"></div>
   <div class="divider"></div>
-  <%= form.submit class:"btn waves-effect waves-light"%>
+  <div class="right">
+    <%= form.submit class:"btn waves-effect waves-light"%>
+  </div>
 <% end %>

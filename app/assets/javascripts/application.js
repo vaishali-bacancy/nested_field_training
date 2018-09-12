@@ -27,11 +27,12 @@ $(document).on('turbolinks:load', function() {
     return event.preventDefault();
   });
 
-  $('form').on('click', '.add_fields', function(event) {
+  $('form').on('click', '.add_record', function(event) {
+  	console.log("test")
     var regexp, time;
     time = new Date().getTime();
     regexp = new RegExp($(this).data('id'), 'g'); 
-    $('.fields').append($(this).data('fields').replace(regexp, time));
+    $('#tasks').append($(this).data('nested-html').replace(regexp, time));
     return event.preventDefault();
   });
 });
