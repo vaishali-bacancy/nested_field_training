@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_id_for_nested, only:[:new, :edit]
 
   # GET /projects
   # GET /projects.json
@@ -64,6 +65,10 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+    def set_id_for_nested
+      @nested_id = Time.now.to_i
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_project
       @project = Project.find(params[:id])
